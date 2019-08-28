@@ -29,3 +29,67 @@ We need to redirect the minikube ip address to a url.
 2. Obtain the master ip address of the cluster: **(192.168.xxx.xxx)**
 3. Under your local machine's /etc/hosts, add the following redirection ip in the file by running: **sudo vim /etc/hosts** and writing/saving: **(192.168.xxx.xxx) foo.bar.com **
 
+### Installing Services
+
+Download the following **example.yaml**
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: service-ns-1
+  name: example-temp
+  labels:
+    app: example-temp
+spec:
+  selector:
+    app: example-temp
+  ports:
+  - name: web
+    port: 8080
+    nodePort: 30910
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: service-ns-1
+  name: example-temp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-temp
+    spec:
+      containers:
+      - name: example-temp
+        image: xienokia/hello-app
+        ports:
+        - name: web
+          containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress-aaa
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  namespace: service-ns-1
+spec:
+  backend:
+    serviceName: example-temp
+    servicePort: 8080
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /test
+        backend:
+          serviceName: example-temp
+          servicePort: 8080
+```
+
+
+Navigate to the **example.yaml** file in the terminal and deploy the file by running in terminal: **kubectl apply -f example.yaml**
+
