@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: service-ns-1
+  name: example-temp
+  labels:
+    app: example-temp
+spec:
+  selector:
+    app: example-temp
+  ports:
+  - name: web
+    port: 8080
+    nodePort: 30910
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: service-ns-1
+  name: example-temp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-temp
+    spec:
+      containers:
+      - name: example-temp
+        image: xienokia/hello-app
+        ports:
+        - name: web
+          containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress-aaa
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  namespace: service-ns-1
+spec:
+  backend:
+    serviceName: example-temp
+    servicePort: 8080
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /test
+        backend:
+          serviceName: example-temp
+          servicePort: 8080
