@@ -150,4 +150,26 @@ Do the following for the ingress controller in the **test2** namespace:
 
 ![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss1.png "Editing the Service")
 
+### Viewing Ingress Controller Logs
+
+Run the following in terminal: ```kubectl -n test get svc``` and remember the nodePort of the ingress-controller-service. It should be in the form of: **80:(nodePort)** 
+
+Run the following in terminal: ```kubectl -n test2 get svc``` and remember the nodePort of the ingress-controller-service. It should be in the form of: **80:(nodePort)** 
+
+In your browser, go to **foo.bar.com:(insert ingress controller nodePort)/(random endpoint)** and refresh a few times to generate logs. 
+- example url for **test** namespace ingress controller service: **foo.bar.com:32453/a**
+- example url for **test2** namespace ingress controller service: **foo.bar.com:30071/b**
+
+Change the **(random endpoint)** a few times for each ingress controller service to generate a few logs for those endpoints.
+
+Run the following to see the pod name for the **test** ingress controller and take note of it: ```kubectl -n test get pod```
+To view the logs for this pod, run: ```kubectl -n test log (ingress controller pod name)```
+
+
+Run the following to see the pod name for the **test2** ingress controller and take note of it: ```kubectl -n test2 get pod```
+To view the logs for this pod, run: ```kubectl -n test2 log (ingress controller pod name)```
+
+### The Parser
+Download the following parse.py
+
 
