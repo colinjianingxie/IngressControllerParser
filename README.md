@@ -12,14 +12,36 @@ How to Parse Logs from Ingress Controllers on Mac
 
 ### Python Setup (required)
 
-We need to be able to access the kubernetes client API. So let's install the library by running in the terminal: **pip3 install kubernetes**. In addition, we are going to be exposing metrics on a local server so that Prometheus can detect it. We need to install the Prometheus library: **pip3 install prometheus_client**
+We need to be able to access the kubernetes client API. So let's install the library by running in the terminal: 
+```
+pip3 install kubernetes
+``` 
+
+In addition, we are going to be exposing metrics on a local server so that Prometheus can detect it. We need to install the Prometheus library: 
+```
+pip3 install prometheus_client
+```
 
 ### Minikube Setup
-1. Make sure minikube is started by running: **minikube start**
-2. Create a **test** namespace by running: **kubectl create ns test** we will be installing an ingress controller into this namespace.
-3. Create a **test2** namespace by running: **kubectl create ns test2** we will be installing another ingress controller into this namespace.
-4. Create an **service-ns-1** namespace by running: **kubectl create ns service-ns-1** this will be where the demo service will be stored.
-5. Turn on the ingress for minikube by running: **minikube addons enable ingress**
+1. Make sure minikube is started by running: 
+```
+minikube start
+```
+2. Create a **test** namespace by running: 
+```
+kubectl create ns test
+```
+we will be installing an ingress controller into this namespace.
+
+3. Create a **test2** namespace by running: 
+```kubectl create ns test2```
+we will be installing another ingress controller into this namespace.
+
+4. Create an **service-ns-1** namespace by running: 
+```kubectl create ns service-ns-1``` 
+this will be where the demo service will be stored.
+5. Turn on the ingress for minikube by running: 
+```minikube addons enable ingress```
 
 ### Setting up /etc/hosts
 
