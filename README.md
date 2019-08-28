@@ -305,7 +305,7 @@ On the terminal, navigate to where the **parse.py** file is located. Then, run t
 
 To view the results of the program, open a browser window and navigate to: **localhost:8000**
 You should see something like the following, where the results of the parse are at the bottom:
-![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss2.png "Editing the Service")
+![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss2.png "Viewing Requests")
 
 ### Installing Prometheus Locally
 
@@ -378,4 +378,40 @@ Grafana is a tool used to make Prometheus graphs more visually appealing.
 3. To start Grafana, use: ```brew services start grafana```
 4. Visit **localhost:3000** and the default login / password is: **admin / admin**
 
+### Connecting Prometheus to Grafana
 
+1. On the left side of Grafana, setup a Data source by clicking the **gear button -> Data Sources** 
+2. Click **Add data source -> Prometheus** then for the URL, type: **localhost:9090**
+3. Create a dashboard by clicking the **+** button on the left side of Grafana
+4. Click **Add Query**
+5. Under **Queries -> Metrics**, add the following metric: **requests_total**
+6. Under **General**, change the title to **Requests Total**
+
+### Filtering by Path
+
+#### Adding Filtered Variable
+1. Click the **settings** button near the top of the dashbaord (to the right of the save button)
+2. Click **Variables -> New**
+3. Under the General block:
+- Name: **path**
+- Label: **path**
+4. Under Query Options:
+- Data source: **Prometheus**
+- Query: **label_values(requests_total, path)
+- Refresh: **On Dashboard Load**
+5. Click **Add** or **Update** at the very bottom
+
+#### Adding Filtered Query
+
+1. Under the dashboard, click the title, **Requests Total** and click **edit**
+2. Under the Queries, change the metrics: **requests_total** to **requests_total{path = "$path"}**
+3. Make sure you save the dashboard changes!
+
+Now under the dashboard, you can filter by path for the requests.
+Here is an example:
+![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss3.png "Final Grafana Image")
+
+### Changing Refresh (Optional)
+
+1. On the top right corner, you can change the auto-refresh timer.
+2. To the left of the automatic refresher, you can also change the time scope.
