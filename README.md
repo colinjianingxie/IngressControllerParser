@@ -148,6 +148,6 @@ Do the following for the ingress controller in the **test2** namespace:
 2. Edit the service by running: ```kubectl -n test edit svc/(insert service name)```. Note that the service name should be something like: **my-nginx-2-nginx-ingress**
 3. Under the **labels** tag, add the following label: **service-type: ingress-controller-service** Formatting is important, so make sure there are spaces before **service-type** to align with the other metatags, and a space after the **:**
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/ss_images/ss1.png "Editing the Service")
+![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss1.png "Editing the Service")
 
 
