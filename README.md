@@ -301,9 +301,11 @@ def main():
 main()
 ```
 
-On the terminal, navigate to where the **parse.py** file is located. Then, run the python3 program through: ```python3 parse.py```
+On the terminal, navigate to where the **parse.py** file is located. Then, run the python3 program through: ```python3 parse.py```. You will not see any results, since it will be hosting a server. Keep the terminal open, and open a browser window. Then, to view the results of the program, open a browser window and navigate to: **localhost:8000**.
 
-To view the results of the program, open a browser window and navigate to: **localhost:8000**
+
+Note: If the python script does NOT work, make sure Python and Pip3 are upgraded to the latest versions.
+
 You should see something like the following, where the results of the parse are at the bottom:
 ![alt text](https://github.com/colinjianingxie/IngressControllerParser/blob/master/ss_images/ss2.png "Viewing Requests")
 
